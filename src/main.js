@@ -20,7 +20,7 @@ api.data = function (id, data) {
 }
 
 /*
- *  Store a controller function in config.controllers
+ *  Store a controller function in config.controllers test
  *  so it can be consumed by sd-controller
  */
 api.controller = function (id, extensions) {

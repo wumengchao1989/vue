@@ -34,8 +34,8 @@ module.exports = {
      *  Build interpolate tag regex from config settings
      */
     buildRegex: function () {
-        var open = escapeRegex(config.interpolateTags.open),
-            close = escapeRegex(config.interpolateTags.close)
-        BINDING_RE = new RegExp(open + '(.+?)' + close)
+        var open = escapeRegex(config.interpolateTags.open),//输出\{\{
+            close = escapeRegex(config.interpolateTags.close)//输出\{\{
+        BINDING_RE = new RegExp(open + '(.+?)' + close)//生成正则表达式/{{(.+?)}}/
     }
 }

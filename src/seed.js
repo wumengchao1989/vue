@@ -27,7 +27,7 @@ function Seed (el, options) {
     // copy options
     options = options || {}
     for (var op in options) {
-        this[op] = options[op]
+        this[op] = options[op]//深拷贝
     }
 
     // check if there's passed in data
@@ -80,7 +80,7 @@ var SeedProto = Seed.prototype
 /*
  *  Compile a DOM node (recursive)
  */
-SeedProto._compileNode = function (node, root) {
+SeedProto._compileNode = function (node, root) {//递归的方式遍历节点内部所有的元素,解析出元素中的directive和绑定的数据
     var seed = this
 
     if (node.nodeType === 3) { // text node
@@ -90,14 +90,14 @@ SeedProto._compileNode = function (node, root) {
     } else if (node.nodeType === 1) {
 
         var eachExp = node.getAttribute(eachAttr),
-            ctrlExp = node.getAttribute(ctrlAttr)
+            ctrlExp = node.getAttribute(ctrlAttr)//解析controller node
 
         if (eachExp) { // each block
 
             var directive = DirectiveParser.parse(eachAttr, eachExp)
             if (directive) {
                 directive.el = node
-                seed._bind(directive)
+                seed._bind(directive)//绑定指令
             }
 
         } else if (ctrlExp && !root) { // nested controllers
@@ -105,7 +105,7 @@ SeedProto._compileNode = function (node, root) {
             new Seed(node, {
                 child: true,
                 parentSeed: seed
-            })
+            })//如果判断是controller,递归Seed;
 
         } else { // normal node
 
@@ -166,7 +166,7 @@ SeedProto._compileTextNode = function (node) {
  *  Add a directive instance to the correct binding & scope
  */
 SeedProto._bind = function (directive) {
-
+    //这版本directive用的是对象形式,包含key,value
     var key = directive.key,
         seed = directive.seed = this
 

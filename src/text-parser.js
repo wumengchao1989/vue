@@ -28,7 +28,7 @@ module.exports = {
         } while (true)
         if (text.length) tokens.push(text)
         return tokens
-    },
+    },//当node为text时,将dom中所有{{data}}解析出来,返回数组
 
     /*
      *  Build interpolate tag regex from config settings

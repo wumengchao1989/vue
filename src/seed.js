@@ -81,7 +81,7 @@ var SeedProto = Seed.prototype
  *  Compile a DOM node (recursive)
  */
 SeedProto._compileNode = function (node, root) {//递归的方式遍历节点内部所有的元素,解析出元素中的directive和绑定的数据
-    var seed = this
+    var seed = this//this指代Seed.protoType
 
     if (node.nodeType === 3) { // text node
 
@@ -130,7 +130,7 @@ SeedProto._compileNode = function (node, root) {//递归的方式遍历节点内
 
             // recursively compile childNodes
             if (node.childNodes.length) {
-                slice.call(node.childNodes).forEach(seed._compileNode, seed)
+                slice.call(node.childNodes).forEach(seed._compileNode, seed)//对子元素递归
             }
         }
     }

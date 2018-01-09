@@ -130,7 +130,7 @@ SeedProto._compileNode = function (node, root) {//递归的方式遍历节点内
 
             // recursively compile childNodes
             if (node.childNodes.length) {
-                slice.call(node.childNodes).forEach(seed._compileNode, seed)//对子元素递归
+                slice.call(node.childNodes).forEach(seed._compileNode, seed)//先将childNodes序列化,然后对每个对子元素递归
             }
         }
     }

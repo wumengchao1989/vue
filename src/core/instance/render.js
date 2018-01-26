@@ -44,6 +44,7 @@ export function initRender (vm: Component) {
 }
 
 export function renderMixin (Vue: Class<Component>) {
+  console.log("6.为Vue构造函数原型上挂载$nextTick,_render方法")
   Vue.prototype.$nextTick = function (fn: Function) {
     return nextTick(fn, this)
   }

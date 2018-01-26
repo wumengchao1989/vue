@@ -39,6 +39,7 @@ export function updateComponentListeners (
 export function eventsMixin (Vue: Class<Component>) {
   console.log("4.eventsMixin")
   const hookRE = /^hook:/
+    console.log("4.1挂载$on,$once,$off,$emit属性")
   Vue.prototype.$on = function (event: string | Array<string>, fn: Function): Component {
     const vm: Component = this
     if (Array.isArray(event)) {

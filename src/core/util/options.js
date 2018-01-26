@@ -271,6 +271,7 @@ export function mergeOptions (
   child: Object,
   vm?: Component
 ): Object {
+    console.log("7.3合并参数")
   if (process.env.NODE_ENV !== 'production') {
     checkComponents(child)
   }

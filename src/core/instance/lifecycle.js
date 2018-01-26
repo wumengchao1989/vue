@@ -46,6 +46,7 @@ export function initLifecycle (vm: Component) {
 }
 
 export function lifecycleMixin (Vue: Class<Component>) {
+  console.log("5.为Vue构造函数原型挂载_update,$forceUpdate,$destroy方法")
   Vue.prototype._update = function (vnode: VNode, hydrating?: boolean) {
     const vm: Component = this
     if (vm._isMounted) {

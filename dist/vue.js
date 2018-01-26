@@ -1281,6 +1281,7 @@ function mergeOptions (
   child,
   vm
 ) {
+    console.log("7.3合并参数");
   {
     checkComponents(child);
   }
@@ -2076,6 +2077,7 @@ function updateComponentListeners (
 function eventsMixin (Vue) {
   console.log("4.eventsMixin");
   var hookRE = /^hook:/;
+    console.log("4.1挂载$on,$once,$off,$emit属性");
   Vue.prototype.$on = function (event, fn) {
     var this$1 = this;
 
@@ -2253,6 +2255,7 @@ function initLifecycle (vm) {
 }
 
 function lifecycleMixin (Vue) {
+  console.log("5.为Vue构造函数原型挂载_update,$forceUpdate,$destroy方法");
   Vue.prototype._update = function (vnode, hydrating) {
     var vm = this;
     if (vm._isMounted) {
@@ -3796,6 +3799,7 @@ function initRender (vm) {
 }
 
 function renderMixin (Vue) {
+  console.log("6.为Vue构造函数原型上挂载$nextTick,_render方法");
   Vue.prototype.$nextTick = function (fn) {
     return nextTick(fn, this)
   };
@@ -3879,6 +3883,7 @@ var uid$1 = 0;
 function initMixin (Vue) {
   console.log("2.initMixin,首先在Vue的原型上挂载_init方法");
   Vue.prototype._init = function (options) {
+    console.log("7.1 init第一步,vm指代新建的Vue对象实例");
     var vm = this;
     // a uid
     vm._uid = uid$1++;
@@ -3900,6 +3905,7 @@ function initMixin (Vue) {
       // internal component options needs special treatment.
       initInternalComponent(vm, options);
     } else {
+      console.log("7.2合并所有组件的options");
       vm.$options = mergeOptions(
         resolveConstructorOptions(vm.constructor),
         options || {},
@@ -3952,6 +3958,7 @@ function initInternalComponent (vm, options) {
 }
 
 function resolveConstructorOptions (Ctor) {
+  console.log("7.2.1解析构造函数中的option");
   var options = Ctor.options;
   if (Ctor.super) {
     var superOptions = resolveConstructorOptions(Ctor.super);
@@ -4014,6 +4021,7 @@ function Vue$3 (options) {
     !(this instanceof Vue$3)) {
     warn('Vue is a constructor and should be called with the `new` keyword');
   }
+  console.log("7.在用户new Vue时,开始执行_init,option为参数");
   this._init(options);
 }
 

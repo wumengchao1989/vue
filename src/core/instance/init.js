@@ -15,6 +15,7 @@ let uid = 0
 export function initMixin (Vue: Class<Component>) {
   console.log("2.initMixin,首先在Vue的原型上挂载_init方法");
   Vue.prototype._init = function (options?: Object) {
+    console.log("7.1 init第一步,vm指代新建的Vue对象实例");
     const vm: Component = this
     // a uid
     vm._uid = uid++
@@ -36,6 +37,7 @@ export function initMixin (Vue: Class<Component>) {
       // internal component options needs special treatment.
       initInternalComponent(vm, options)
     } else {
+      console.log("7.2合并所有组件的options");
       vm.$options = mergeOptions(
         resolveConstructorOptions(vm.constructor),
         options || {},
@@ -90,6 +92,7 @@ function initInternalComponent (vm: Component, options: InternalComponentOptions
 }
 
 export function resolveConstructorOptions (Ctor: Class<Component>) {
+  console.log("7.2.1解析构造函数中的option");
   let options = Ctor.options
   if (Ctor.super) {
     const superOptions = resolveConstructorOptions(Ctor.super)

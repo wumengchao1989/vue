@@ -263,7 +263,8 @@ export function stateMixin(Vue: Class<Component>) {
     // flow somehow has problems with directly declared definition object
     // when using Object.defineProperty, so we have to procedurally build up
     // the object here.
-    console.log("stateMixin");
+    console.log("3.stateMixin");
+    console.log("3.1为Vue构造函数新增$data,$props属性.首先构建两个自定义对象dataDef,propsDef,并为其设定自定义set,get方法.其中set方法中给出warn,不建议用户自己更改这两个属性")
     const dataDef = {}
     dataDef.get = function () {
         return this._data
@@ -272,6 +273,7 @@ export function stateMixin(Vue: Class<Component>) {
     propsDef.get = function () {
         return this._props
     }
+
     if (process.env.NODE_ENV !== 'production') {
         dataDef.set = function (newData: Object) {
             warn(
@@ -284,9 +286,10 @@ export function stateMixin(Vue: Class<Component>) {
             warn(`$props is readonly.`, this)
         }
     }
+    console.log("3.2将$data,$props属性挂载到Vue构造函数原型上");
     Object.defineProperty(Vue.prototype, '$data', dataDef)
     Object.defineProperty(Vue.prototype, '$props', propsDef)
-
+    console.log("3.3为Vue构造函数原型挂载$set,$delete,$watch属性")
     Vue.prototype.$set = set
     Vue.prototype.$delete = del
 

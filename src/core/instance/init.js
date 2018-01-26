@@ -13,6 +13,7 @@ import { extend, mergeOptions, formatComponentName } from '../util/index'
 let uid = 0
 
 export function initMixin (Vue: Class<Component>) {
+  console.log("2.initMixin,首先在Vue的原型上挂载_init方法");
   Vue.prototype._init = function (options?: Object) {
     const vm: Component = this
     // a uid

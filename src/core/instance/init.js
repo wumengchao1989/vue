@@ -37,7 +37,7 @@ export function initMixin (Vue: Class<Component>) {
       // internal component options needs special treatment.
       initInternalComponent(vm, options)
     } else {
-      console.log("7.2合并所有组件的options");
+      console.log("7.2合并所有组件的options,meargeOptions有三个参数,parent,child,vm.其中parent参数通过resolveConstructorOptions方法解析构造函数获得");
       vm.$options = mergeOptions(
         resolveConstructorOptions(vm.constructor),
         options || {},

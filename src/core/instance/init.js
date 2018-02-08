@@ -15,7 +15,7 @@ let uid = 0
 export function initMixin(Vue: Class<Component>) {
     console.log("2.initMixin,首先在Vue的原型上挂载_init方法");
     Vue.prototype._init = function (options?: Object) {
-        console.log("7.1 init第一步,vm指代新建的Vue对象实例");
+        console.log("8.1 init第一步,vm指代构造函数Vue创建的对象实例");
         const vm: Component = this
 
         // a uid
@@ -25,6 +25,7 @@ export function initMixin(Vue: Class<Component>) {
         /* istanbul ignore if */
         if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
             startTag = `vue-perf-init:${vm._uid}`
+            /* console.log("`${}`语法,用于字符串与变量的拼接");*/
             endTag = `vue-perf-end:${vm._uid}`
             mark(startTag)
         }
@@ -38,7 +39,7 @@ export function initMixin(Vue: Class<Component>) {
             // internal component options needs special treatment.
             initInternalComponent(vm, options)
         } else {
-            console.log("7.2合并所有组件的options,mergeOptions包含三个参数:parent,child,vm,内部通过递归的方式将所有子组件的option一起合并," +
+            console.log("8.2合并所有组件的options,mergeOptions包含三个参数:parent,child,vm,内部通过递归的方式将所有子组件的option一起合并,最后赋值给vm,做为最终的option" +
                 "其中初始阶段通过resolveConstructorOptions方法初始化根组件options");
             vm.$options = mergeOptions(
                 resolveConstructorOptions(vm.constructor),
@@ -94,8 +95,9 @@ function initInternalComponent(vm: Component, options: InternalComponentOptions)
 }
 
 export function resolveConstructorOptions(Ctor: Class<Component>) {
-    console.log("7.2.1解析构造函数中的option");
+    console.log("8.2.1解析构造函数中的option,Ctor指代构造函数");
     let options = Ctor.options
+
     if (Ctor.super) {
         const superOptions = resolveConstructorOptions(Ctor.super)
         const cachedSuperOptions = Ctor.superOptions

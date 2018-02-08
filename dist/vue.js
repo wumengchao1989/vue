@@ -1033,11 +1033,6 @@ function dependArray (value) {
 
 /*  */
 
-/**
- * Option overwriting strategies are functions that handle
- * how to merge a parent option value and a child option
- * value into the final value.
- */
 var strats = config.optionMergeStrategies;
 
 /**
@@ -3888,7 +3883,7 @@ var uid$1 = 0;
 function initMixin(Vue) {
     console.log("2.initMixin,首先在Vue的原型上挂载_init方法");
     Vue.prototype._init = function (options) {
-        console.log("7.1 init第一步,vm指代新建的Vue对象实例");
+        console.log("8.1 init第一步,vm指代构造函数Vue创建的对象实例");
         var vm = this;
 
         // a uid
@@ -3898,6 +3893,7 @@ function initMixin(Vue) {
         /* istanbul ignore if */
         if ("development" !== 'production' && config.performance && mark) {
             startTag = "vue-perf-init:" + (vm._uid);
+            /* console.log("`${}`语法,用于字符串与变量的拼接");*/
             endTag = "vue-perf-end:" + (vm._uid);
             mark(startTag);
         }
@@ -3911,7 +3907,7 @@ function initMixin(Vue) {
             // internal component options needs special treatment.
             initInternalComponent(vm, options);
         } else {
-            console.log("7.2合并所有组件的options,mergeOptions包含三个参数:parent,child,vm,内部通过递归的方式将所有子组件的option一起合并," +
+            console.log("8.2合并所有组件的options,mergeOptions包含三个参数:parent,child,vm,内部通过递归的方式将所有子组件的option一起合并,最后赋值给vm,做为最终的option" +
                 "其中初始阶段通过resolveConstructorOptions方法初始化根组件options");
             vm.$options = mergeOptions(
                 resolveConstructorOptions(vm.constructor),
@@ -3965,8 +3961,11 @@ function initInternalComponent(vm, options) {
 }
 
 function resolveConstructorOptions(Ctor) {
-    console.log("7.2.1解析构造函数中的option");
+    console.log("8.2.1解析构造函数中的option,Ctor指代构造函数");
     var options = Ctor.options;
+    console.log(options);
+    console.log(Ctor.super);
+
     if (Ctor.super) {
         var superOptions = resolveConstructorOptions(Ctor.super);
         var cachedSuperOptions = Ctor.superOptions;
@@ -4307,6 +4306,7 @@ var builtInComponents = {
 
 function initGlobalAPI (Vue) {
   // config
+    console.log("7.1继续处理Vue构造函数,挂载静态方法和属性");
   var configDef = {};
   configDef.get = function () { return config; };
   {
@@ -4317,6 +4317,7 @@ function initGlobalAPI (Vue) {
     };
   }
   Object.defineProperty(Vue, 'config', configDef);
+    console.log("7.2 给Vue添加config属性,并设定get,set方法,get方法返回config,set方法,如果用户强制修改config,会出发警告");
 
   // exposed util methods.
   // NOTE: these are not considered part of the public API - avoid relying on
@@ -4349,6 +4350,7 @@ function initGlobalAPI (Vue) {
   initAssetRegisters(Vue);
 }
 
+console.log("7.import已经经过instance中处理过的Vue,使用initGlobalApi进一步加工");
 initGlobalAPI(Vue$3);
 
 Object.defineProperty(Vue$3.prototype, '$isServer', {

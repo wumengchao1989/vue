@@ -50,7 +50,7 @@ export function lifecycleMixin (Vue: Class<Component>) {
   Vue.prototype._update = function (vnode: VNode, hydrating?: boolean) {
     const vm: Component = this
     if (vm._isMounted) {
-      callHook(vm, 'beforeUpdate')
+      callHook(vm, 'beforeUpdate')//callHook方法，调用Vue的钩子函数，
     }
     const prevEl = vm.$el
     const prevVnode = vm._vnode

@@ -13,9 +13,10 @@ import {extend, mergeOptions, formatComponentName} from '../util/index'
 let uid = 0
 
 export function initMixin(Vue: Class<Component>) {
-    console.log("2.initMixin,首先在Vue的原型上挂载_init方法");
+    console.log("2.initMixin,首先在Vue的原型上挂载_init方法",Vue.prototype);
     Vue.prototype._init = function (options?: Object) {
-        console.log("7.1 init第一步,vm指代新建的Vue对象实例");
+        console.log("7.1 init第一步,vm指代新建的Vue对象实例",typeof this==="object");
+        console.log(this)
         const vm: Component = this
 
         // a uid
@@ -40,7 +41,7 @@ export function initMixin(Vue: Class<Component>) {
         } else {
             console.log("7.2合并所有组件的options,mergeOptions包含三个参数:parent,child,vm,内部通过递归的方式将所有子组件的option一起合并," +
                 "其中初始阶段通过resolveConstructorOptions方法初始化根组件options");
-            vm.$options = mergeOptions(
+            vm.$options = mergeOptions(//$options是合并之后的option
                 resolveConstructorOptions(vm.constructor),
                 options || {},
                 vm
@@ -94,7 +95,7 @@ function initInternalComponent(vm: Component, options: InternalComponentOptions)
 }
 
 export function resolveConstructorOptions(Ctor: Class<Component>) {
-    console.log("7.2.1解析构造函数中的option");
+    console.log("7.2.1解析构造函数中的option",Ctor.options);
     let options = Ctor.options
     if (Ctor.super) {
         const superOptions = resolveConstructorOptions(Ctor.super)

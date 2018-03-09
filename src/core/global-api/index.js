@@ -20,6 +20,7 @@ import {
 
 export function initGlobalAPI (Vue: GlobalAPI) {
   // config
+    console.log("7.1继续处理Vue构造函数,挂载静态方法和属性")
   const configDef = {}
   configDef.get = () => config
   if (process.env.NODE_ENV !== 'production') {
@@ -30,6 +31,7 @@ export function initGlobalAPI (Vue: GlobalAPI) {
     }
   }
   Object.defineProperty(Vue, 'config', configDef)
+    console.log("7.2 给Vue添加config属性,并设定get,set方法,get方法返回config,set方法,如果用户强制修改config,会出发警告")
 
   // exposed util methods.
   // NOTE: these are not considered part of the public API - avoid relying on

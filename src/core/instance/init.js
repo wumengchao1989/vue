@@ -90,6 +90,7 @@ function initInternalComponent (vm: Component, options: InternalComponentOptions
 
 export function resolveConstructorOptions (Ctor: Class<Component>) {
   let options = Ctor.options
+  console.log('ctor', options)
   if (Ctor.super) {
     const superOptions = resolveConstructorOptions(Ctor.super)
     const cachedSuperOptions = Ctor.superOptions

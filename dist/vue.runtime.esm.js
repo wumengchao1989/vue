@@ -1,6 +1,6 @@
 /*!
  * Vue.js v2.3.3
- * (c) 2014-2017 Evan You
+ * (c) 2014-2019 Evan You
  * Released under the MIT License.
  */
 /*  */
@@ -1287,6 +1287,8 @@ function mergeOptions (
   child,
   vm
 ) {
+  console.log('parent', parent);
+  console.log('child', child);
   if (process.env.NODE_ENV !== 'production') {
     checkComponents(child);
   }
@@ -2981,6 +2983,16 @@ var isReservedProp = {
   slot: 1
 };
 
+function checkOptionType (vm, name) {
+  var option = vm.$options[name];
+  if (!isPlainObject(option)) {
+    warn(
+      ("component option \"" + name + "\" should be an object."),
+      vm
+    );
+  }
+}
+
 function initProps (vm, propsOptions) {
   var propsData = vm.$options.propsData || {};
   var props = vm._props = {};
@@ -3071,6 +3083,7 @@ function getData (data, vm) {
 var computedWatcherOptions = { lazy: true };
 
 function initComputed (vm, computed) {
+  process.env.NODE_ENV !== 'production' && checkOptionType(vm, 'computed');
   var watchers = vm._computedWatchers = Object.create(null);
 
   for (var key in computed) {
@@ -3136,6 +3149,7 @@ function createComputedGetter (key) {
 }
 
 function initMethods (vm, methods) {
+  process.env.NODE_ENV !== 'production' && checkOptionType(vm, 'methods');
   var props = vm.$options.props;
   for (var key in methods) {
     vm[key] = methods[key] == null ? noop : bind(methods[key], vm);
@@ -3158,6 +3172,7 @@ function initMethods (vm, methods) {
 }
 
 function initWatch (vm, watch) {
+  process.env.NODE_ENV !== 'production' && checkOptionType(vm, 'watch');
   for (var key in watch) {
     var handler = watch[key];
     if (Array.isArray(handler)) {
@@ -3170,8 +3185,12 @@ function initWatch (vm, watch) {
   }
 }
 
-function createWatcher (vm, key, handler) {
-  var options;
+function createWatcher (
+  vm,
+  keyOrFn,
+  handler,
+  options
+) {
   if (isPlainObject(handler)) {
     options = handler;
     handler = handler.handler;
@@ -3179,7 +3198,7 @@ function createWatcher (vm, key, handler) {
   if (typeof handler === 'string') {
     handler = vm[handler];
   }
-  vm.$watch(key, handler, options);
+  return vm.$watch(keyOrFn, handler, options)
 }
 
 function stateMixin (Vue) {
@@ -3214,6 +3233,9 @@ function stateMixin (Vue) {
     options
   ) {
     var vm = this;
+    if (isPlainObject(cb)) {
+      return createWatcher(vm, expOrFn, cb, options)
+    }
     options = options || {};
     options.user = true;
     var watcher = new Watcher(vm, expOrFn, cb, options);
@@ -4027,6 +4049,7 @@ function initInternalComponent (vm, options) {
 
 function resolveConstructorOptions (Ctor) {
   var options = Ctor.options;
+  console.log('ctor', options);
   if (Ctor.super) {
     var superOptions = resolveConstructorOptions(Ctor.super);
     var cachedSuperOptions = Ctor.superOptions;
@@ -4082,6 +4105,7 @@ function dedupe (latest, extended, sealed) {
   }
 }
 
+debugger
 function Vue$3 (options) {
   if (process.env.NODE_ENV !== 'production' &&
     !(this instanceof Vue$3)

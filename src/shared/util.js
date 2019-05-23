@@ -1,4 +1,5 @@
 /* @flow */
+/* @flow */
 
 // these helpers produces better vm code in JS engines due to their
 // explicitness and function inlining

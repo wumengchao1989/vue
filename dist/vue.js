@@ -1,6 +1,6 @@
 /*!
  * Vue.js v2.3.3
- * (c) 2014-2018 Evan You
+ * (c) 2014-2019 Evan You
  * Released under the MIT License.
  */
 (function (global, factory) {
@@ -10,6 +10,7 @@
 }(this, (function () { 'use strict';
 
 /*  */
+/* @flow */
 
 // these helpers produces better vm code in JS engines due to their
 // explicitness and function inlining
@@ -725,6 +726,7 @@ Dep.prototype.removeSub = function removeSub (sub) {
 };
 
 Dep.prototype.depend = function depend () {
+  debugger
   if (Dep.target) {
     Dep.target.addDep(this);
   }
@@ -1040,11 +1042,6 @@ function dependArray (value) {
 
 /*  */
 
-/**
- * Option overwriting strategies are functions that handle
- * how to merge a parent option value and a child option
- * value into the final value.
- */
 var strats = config.optionMergeStrategies;
 
 /**
@@ -4069,6 +4066,7 @@ function Vue$3 (options) {
   ) {
     warn('Vue is a constructor and should be called with the `new` keyword');
   }
+  console.log(options);
   this._init(options);
 }
 
@@ -7801,6 +7799,7 @@ function parseHTML (html, options) {
         advance(attr[0].length);
         match.attrs.push(attr);
       }
+      debugger;
       if (end) {
         match.unarySlash = end[1];
         advance(end[0].length);

@@ -114,7 +114,7 @@ export function parseHTML (html, options) {
         }
 
         // Start tag:
-        const startTagMatch = parseStartTag()
+        const startTagMatch = parseStartTag();
         if (startTagMatch) {
           handleStartTag(startTagMatch)
           continue
@@ -200,6 +200,7 @@ export function parseHTML (html, options) {
         advance(attr[0].length)
         match.attrs.push(attr)
       }
+      debugger;
       if (end) {
         match.unarySlash = end[1]
         advance(end[0].length)

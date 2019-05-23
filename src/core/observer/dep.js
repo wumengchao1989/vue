@@ -28,6 +28,7 @@ export default class Dep {
   }
 
   depend () {
+    debugger
     if (Dep.target) {
       Dep.target.addDep(this)
     }
